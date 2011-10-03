@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>Connector</display-name>
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>connectorServiceServlet</servlet-name>
+		<servlet-class>com.semanticexpression.connector.server.ConnectorServiceImpl</servlet-class>
+		<init-param>
+			<param-name>serverConfigurationFileName</param-name>
+			<param-value>config/server.cfg</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>connectorServiceServlet</servlet-name>
+		<url-pattern>/connector/connectorService</url-pattern>
+		<url-pattern>/content/*</url-pattern> <!-- see UrlConstants.java -->
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<servlet-class>com.semanticexpression.connector.captcha.CaptchaServlet</servlet-class>
+		<init-param>
+			<param-name>characterSet</param-name>
+			<param-value>abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVXYZ23456789</param-value>
+		</init-param>
+		<init-param>
+			<param-name>keyLength</param-name>
+			<param-value>6</param-value>
+		</init-param>
+		<init-param>
+			<param-name>fontName</param-name>
+			<param-value>Verdana</param-value>
+		</init-param>
+		<init-param>
+			<param-name>fontSize</param-name>
+			<param-value>26</param-value>
+		</init-param>
+		<init-param>
+			<param-name>imageWidth</param-name>
+			<param-value>190</param-value>
+		</init-param>
+		<init-param>
+			<param-name>imageHeight</param-name>
+			<param-value>50</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CaptchaServlet</servlet-name>
+		<url-pattern>/captchaServlet/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>chart</servlet-name>
+		<servlet-class>org.jfree.eastwood.ChartServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>chart</servlet-name>
+		<url-pattern>/chart</url-pattern> <!-- see UrlConstants.java -->
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/static/*</url-pattern> <!-- see UrlConstants.java -->
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Connector.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gxt.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="con" path="DERBY_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-core-3.0.3.jar" sourcepath="/opt/lucene-3.0.3-src"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-highlighter-3.0.3.jar" sourcepath="/opt/lucene-3.0.3-src/contrib/highlighter/src/java"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/lucene-memory-3.0.3.jar"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/mail.jar" sourcepath="/opt/javamail-1.4.4-src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/opt/javamail-1.4.4/docs/javadocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

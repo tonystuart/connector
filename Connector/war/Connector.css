@@ -1,0 +1,101 @@
+.connector-panel-body {
+	background-color: #f0f0ff;
+}
+
+.connector-form-font {
+	font: 11px tahoma, arial, helvetica, sans-serif;
+}
+
+.connector-FieldLabel {
+	text-align: right;
+}
+
+.connector-Centered {
+	text-align: center;
+}
+
+.connector-Bottom {
+	text-align: bottom;
+}
+
+.connector-InlineHyperLink,.connector-SearchResultSemanticTag,.connector-SearchResultContentTag,.connector-SearchResultAuthorTag
+	{
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+}
+
+.connector-InlineHtml {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+.connector-Border {
+	border: 1px solid #99BBE8;
+}
+
+.connector-BorderTop {
+	border-top: 1px solid #99BBE8;
+}
+
+.connector-MaximizedFrame {
+	border-left: 1px solid #99BBE8;
+	border-right: 1px solid #99BBE8;
+}
+
+.connector-FullSizeToolButton {
+	margin-top: 4px;
+	margin-bottom: 3px;
+}
+
+/* See resources/css/gxt-all.css:.x-view-item */
+.connector-ListViewItem {
+	border: 1px solid #FFFFFF;
+	font: 11px tahoma, arial, helvetica, sans-serif;
+	padding: 2px;
+	white-space: normal;
+}
+
+.connector-ListViewField {
+	color: gray;
+}
+
+.connector-ListViewValue {
+	color: black;
+}
+
+.connector-SearchResult {
+	margin: 5px;
+}
+
+.connector-SearchResultLabel {
+	font-weight: bold;
+}
+
+/* .connector-SearchResultDivider {
+	height: 1px;
+	margin: 5px 0px 5px 0px;
+	border-bottom: dotted thin gray;
+} */
+
+.connector-SearchResultDivider {
+	height: 0px;
+	margin: 0px;
+}
+
+.connector-FrameletDescription { /* derived from .x-panel-header w/o inherited border */
+	color: #15428B;
+	font-family: tahoma, arial, verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.connector-TableFormula {
+	font-weight: bold;
+}
+
+.gwt-RichTextArea {
+	background-color: white;
+	border: none;
+}
