@@ -25,6 +25,8 @@ import com.semanticexpression.connector.shared.TagConstants.TagVisibility;
 
 public class TagFilter implements Serializable
 {
+  private static final long serialVersionUID = 1L;
+  
   private boolean isAuthor;
   private boolean isContent;
   private boolean isInclude;

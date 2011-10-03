@@ -25,5 +25,5 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 
 public class Status extends BaseModel implements Serializable
 {
-
+  private static final long serialVersionUID = 1L;
 }

@@ -21,6 +21,8 @@ package com.semanticexpression.connector.shared.exception;
 
 public class AuthenticationException extends Exception
 {
+  private static final long serialVersionUID = 1L;
+  
   public AuthenticationException()
   {
   }

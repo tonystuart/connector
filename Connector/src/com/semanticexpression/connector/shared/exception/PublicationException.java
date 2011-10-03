@@ -23,6 +23,8 @@ import com.semanticexpression.connector.shared.Id;
 
 public class PublicationException extends Exception
 {
+  private static final long serialVersionUID = 1L;
+  
   private Id contentId;
 
   public PublicationException()

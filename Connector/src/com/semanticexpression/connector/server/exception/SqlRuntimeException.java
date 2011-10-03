@@ -25,7 +25,8 @@ import com.semanticexpression.connector.server.Log;
 
 public class SqlRuntimeException extends RuntimeException
 {
-
+  private static final long serialVersionUID = 1L;
+  
   public SqlRuntimeException(SQLException e)
   {
     super(e);

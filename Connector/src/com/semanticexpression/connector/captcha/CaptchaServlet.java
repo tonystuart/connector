@@ -32,6 +32,7 @@ import javax.servlet.http.HttpSession;
 public class CaptchaServlet extends HttpServlet
 {
   public static final String CAPTCHA_KEY = "captchaKey";
+  private static final long serialVersionUID = 1L;
 
   private String characterSet;
   private String fontName;

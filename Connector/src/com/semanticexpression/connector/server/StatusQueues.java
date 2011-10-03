@@ -25,5 +25,5 @@ import com.semanticexpression.connector.shared.Id;
 
 public class StatusQueues extends ConcurrentSkipListMap<Id, StatusQueue>
 {
-
+  private static final long serialVersionUID = 1L;
 }

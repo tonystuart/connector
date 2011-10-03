@@ -23,5 +23,5 @@ import com.extjs.gxt.ui.client.data.BaseModelData;
 
 public class Relationship extends BaseModelData
 {
-
+  private static final long serialVersionUID = 1L;
 }

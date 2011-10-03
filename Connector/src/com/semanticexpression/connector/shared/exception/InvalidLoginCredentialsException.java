@@ -21,4 +21,5 @@ package com.semanticexpression.connector.shared.exception;
 
 public class InvalidLoginCredentialsException extends Exception
 {
+  private static final long serialVersionUID = 1L;
 }

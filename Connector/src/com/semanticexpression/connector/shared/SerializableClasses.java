@@ -29,6 +29,8 @@ import com.semanticexpression.connector.shared.enums.ContentType;
 
 public class SerializableClasses implements Serializable
 {
+  private static final long serialVersionUID = 1L;
+  
   public BaseModel baseModel;
   public ContentType contentType;
   public Id identity;

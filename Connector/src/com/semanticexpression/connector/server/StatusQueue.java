@@ -28,7 +28,9 @@ import com.semanticexpression.connector.shared.Status;
 
 public class StatusQueue extends LinkedBlockingQueue<Status> implements Comparable<StatusQueue>
 {
+  private static final long serialVersionUID = 1L;
   private static AtomicInteger count = new AtomicInteger();
+  
   private long clientTime; // time server last returned status to client (i.e. the token is with the client)
   private int queueNumber;
   private long serverTime; // time client last requested status from server (i.e. the token is with the server)

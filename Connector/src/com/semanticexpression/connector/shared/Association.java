@@ -29,6 +29,8 @@ import com.semanticexpression.connector.shared.exception.ReadOnlyUpdateException
 
 public class Association extends BaseModel implements Tracker, Copyable
 {
+  private static final long serialVersionUID = 1L;
+  
   protected Id id;
   protected boolean isReadOnly;
   protected transient Map<String, Object> snapshot;
@@ -123,7 +125,7 @@ public class Association extends BaseModel implements Tracker, Copyable
     {
       newAssociation.transients = new HashMap<String, Object>(transients);
     }
-    
+
     newAssociation.set(Keys.DERIVED_FROM, id);
   }
 

@@ -25,6 +25,8 @@ import java.util.Map.Entry;
 
 public class Content extends Association implements Serializable, Copyable
 {
+  private static final long serialVersionUID = 1L;
+  
   protected Content()
   {
   }

@@ -23,6 +23,8 @@ import java.io.Serializable;
 
 public final class Id implements Serializable, Comparable<Id>
 {
+  private static final long serialVersionUID = 1L;
+  
   private long id;
 
   public Id()

@@ -23,5 +23,5 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 
 public class HistoryItem extends BaseModel
 {
-
+  private static final long serialVersionUID = 1L;
 }

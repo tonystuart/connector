@@ -24,6 +24,8 @@ import java.util.LinkedList;
 
 public class Sequence<T> extends LinkedList<T> implements Tracker, Copyable
 {
+  private static final long serialVersionUID = 1L;
+  
   private transient LinkedList<T> snapshot;
 
   public Sequence()

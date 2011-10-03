@@ -40,6 +40,8 @@ import com.semanticexpression.connector.shared.Id;
 
 public final class ContentReference extends BaseModel
 {
+  private static final long serialVersionUID = 1L;
+  
   private Content baseContent;
   private Content content;
   private ChangeListener contentChangeListener;

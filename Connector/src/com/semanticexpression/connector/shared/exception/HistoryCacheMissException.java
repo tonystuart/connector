@@ -21,5 +21,5 @@ package com.semanticexpression.connector.shared.exception;
 
 public class HistoryCacheMissException extends RuntimeException
 {
-
+  private static final long serialVersionUID = 1L;
 }

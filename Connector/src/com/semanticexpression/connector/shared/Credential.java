@@ -29,6 +29,8 @@ public class Credential implements Serializable
   public static final int OPTION_B_PERSONAL_QUESTION = 0x02;
   public static final int OPTION_C_CAPTCHA = 0x04;
 
+  private static final long serialVersionUID = 1L;
+
   private int accountCreationOptions;
   private String authenticationToken;
   private AuthenticationType authenticationType;
