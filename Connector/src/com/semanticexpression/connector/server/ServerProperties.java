@@ -87,7 +87,7 @@ public class ServerProperties implements LogPropertyProvider
 
   public String getEncryptedAdministrationPassword()
   {
-    return serverConfiguration.get("encryptedAdministrationPassword");
+    return serverConfiguration.get("encryptedAdministrationPassword", null);
   }
 
   public String getIndexDirectoryPathName()

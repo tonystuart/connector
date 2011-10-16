@@ -58,11 +58,16 @@ public class AccountOperation extends BaseOperation
         throw new DuplicateUserNameException(userName);
       }
 
-      Date date = new Date();
+      boolean isAdministrator = false;
       String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
       String encryptedAdministrationPassword = serverProperties.getEncryptedAdministrationPassword();
-      boolean isAdministrator = BCrypt.checkpw(password, encryptedAdministrationPassword);
-
+      if (encryptedAdministrationPassword != null)
+      {
+        isAdministrator = BCrypt.checkpw(password, encryptedAdministrationPassword);
+      }
+      
+      Date date = new Date();
+      
       userId = repository.createEntity(connection, EntityType.USER, userName, null, Repository.SYSTEM_USER_ID, date);
       createProperty(connection, userId, Keys.ENCRYPTED_PASSWORD, encryptedPassword, date, userId);
       createProperty(connection, userId, Keys.IS_ADMINISTRATOR, isAdministrator, date, userId);
