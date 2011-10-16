@@ -33,6 +33,11 @@ public class OperationFactory
     return new AccountOperation(serverContext);
   }
 
+  public AdminOperation createAdminOperation()
+  {
+    return new AdminOperation(serverContext);
+  }
+
   public CredentialOperation createCredentialOperation()
   {
     return new CredentialOperation(serverContext);

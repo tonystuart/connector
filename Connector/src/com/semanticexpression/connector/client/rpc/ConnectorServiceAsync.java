@@ -25,6 +25,8 @@ import java.util.List;
 import com.extjs.gxt.ui.client.data.BasePagingLoadResult;
 import com.extjs.gxt.ui.client.data.PagingLoadConfig;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.semanticexpression.connector.shared.AdminRequest;
+import com.semanticexpression.connector.shared.AdminResult;
 import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Content;
 import com.semanticexpression.connector.shared.Credential;
@@ -48,6 +50,8 @@ public interface ConnectorServiceAsync
 
   public void createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey, AsyncCallback<Credential> callback);
 
+  public void executeAdminRequest(String authenticationToken, AdminRequest adminRequest, AsyncCallback<AdminResult> callback);
+
   public void getCredential(String authenticationToken, AsyncCallback<Credential> callback);
 
   public void getHistory(String authenticationToken, Id contentId, PagingLoadConfig loadConfig, AsyncCallback<BasePagingLoadResult<HistoryItem>> callback);
@@ -57,7 +61,7 @@ public interface ConnectorServiceAsync
   public void getPersonalSecurityQuestion(String userName, AsyncCallback<String> callback);
 
   public void getRelationships(String authenticationToken, Id contentId, AsyncCallback<List<Relationship>> callback);
-  
+
   public void getStatus(String authenticationToken, Id monitorId, AsyncCallback<List<Status>> callback);
 
   public void login(String userName, String password, AsyncCallback<Credential> callback);

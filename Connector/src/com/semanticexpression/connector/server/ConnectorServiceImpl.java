@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -47,6 +46,9 @@ import com.semanticexpression.connector.client.Utility;
 import com.semanticexpression.connector.client.rpc.ConnectorService;
 import com.semanticexpression.connector.client.rpc.ConnectorServiceAsync.MatchingNameType;
 import com.semanticexpression.connector.server.repository.Repository;
+import com.semanticexpression.connector.server.repository.RepositoryFactory;
+import com.semanticexpression.connector.shared.AdminRequest;
+import com.semanticexpression.connector.shared.AdminResult;
 import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Content;
 import com.semanticexpression.connector.shared.Credential;
@@ -83,8 +85,8 @@ public class ConnectorServiceImpl extends RemoteServiceServlet implements Connec
   {
     return hostPageBaseURL;
   }
+  
   private OperationFactory operationFactory;
-
   private ServerContext serverContext;
 
   @Override
@@ -159,49 +161,34 @@ public class ConnectorServiceImpl extends RemoteServiceServlet implements Connec
   {
     try
     {
-      Log.info("ConnectorServiceImpl: initialization in progress, serverConfigurationFileName=%s", servletConfig);
+      Log.info("ConnectorServiceImpl: initialization in progress");
+
+      ServerProperties serverProperties = new ServerProperties(servletConfig);
+      Log.setLogPropertyProvider(serverProperties);
 
       ServletContext servletContext = servletConfig.getServletContext();
       hostPageBaseURL = servletContext.getContextPath();
-      String serverConfigurationFileName = servletConfig.getInitParameter("serverConfigurationFileName");
-      String serverConfigurationPath = servletContext.getRealPath(serverConfigurationFileName);
-      ServerProperties serverProperties = new ServerProperties(serverConfigurationPath);
 
-      String logFileName = serverProperties.getLogFileName();
-      String logPath = servletContext.getRealPath(logFileName);
-      Log.setLogFileName(logPath);
-
-      int logLevel = serverProperties.getLogLevel();
-      Log.setLogLevel(logLevel);
-
-      LinkedHashMap<String, String> logPatterns = serverProperties.getLogPatterns();
-      Log.setLogPatterns(logPatterns);
-
-      String temporaryDirectoryName = serverProperties.getTemporaryDirectory();
-      String temporaryDirectoryPath = servletContext.getRealPath(temporaryDirectoryName);
-      File temporaryDirectory = new File(temporaryDirectoryPath);
+      String temporaryDirectoryPathName = serverProperties.getTemporaryDirectoryPathName();
+      File temporaryDirectory = new File(temporaryDirectoryPathName);
       temporaryDirectory.mkdirs();
 
-      String indexDirectoryName = serverProperties.getIndexDirectory();
-      String indexDirectoryPath = servletContext.getRealPath(indexDirectoryName);
-      SearchEngine searchEngine = new SearchEngine(indexDirectoryPath);
+      String indexDirectoryPathName = serverProperties.getIndexDirectoryPathName();
+      SearchEngine searchEngine = new SearchEngine(indexDirectoryPathName);
       searchEngine.open();
 
-      String mailerConfigurationFileName = serverProperties.getMailerConfigurationFileName();
-      String mailerConfigurationPath = servletContext.getRealPath(mailerConfigurationFileName);
-      Mailer mailer = new Mailer(mailerConfigurationPath);
+      String mailerSessionPropertiesPathName = serverProperties.getMailerSessionPropertiesPathName();
+      Mailer mailer = new Mailer(mailerSessionPropertiesPathName);
 
-      String databaseUrl = serverProperties.getDatabaseUrl();
-      databaseUrl = databaseUrl.replace("{{ROOT}}", servletContext.getRealPath("/"));
-      int maximumConnections = serverProperties.getMaximumConnections();
-      Repository repository = new Repository(databaseUrl, maximumConnections);
+      RepositoryFactory repositoryCreator = new RepositoryFactory(serverProperties);
+      Repository repository = repositoryCreator.create();
 
       StatusQueues statusQueues = new StatusQueues();
 
       Random random = new Random();
 
       ServerContext serverContext = new ServerContext(serverProperties, repository, searchEngine, mailer, statusQueues, temporaryDirectory, random);
-      Log.info("ConnectorServiceImpl: initialization complete, serverConfigurationFileName=%s, logLevel=%d", serverConfigurationFileName, logLevel);
+      Log.info("ConnectorServiceImpl: initialization complete");
 
       return serverContext;
     }
@@ -295,6 +282,20 @@ public class ConnectorServiceImpl extends RemoteServiceServlet implements Connec
     Log.fatal("******************* doUnexpectedFailure *******************");
     Log.fatal("e=%s", throwable);
     super.doUnexpectedFailure(throwable);
+  }
+
+  @Override
+  public AdminResult executeAdminRequest(String authenticationToken, AdminRequest adminRequest) throws ServerException, AuthenticationException, AuthorizationException
+  {
+    try
+    {
+      AdminOperation adminOperation = operationFactory.createAdminOperation();
+      return adminOperation.executeAdminRequest(authenticationToken, adminRequest);
+    }
+    catch (RuntimeException e)
+    {
+      throw createServerException(e);
+    }
   }
 
   private void formatAccessException(HttpServletResponse response) throws ServletException

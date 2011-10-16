@@ -45,15 +45,16 @@ public class Log
   public static final int LOG_4_DEBUG = 4;
   public static final int LOG_5_TRACE = 5;
 
-  public static final String LOG_PATTERN_ENABLE = "logPatternEnable";
   public static final String LOG_PATTERN_DISABLE = "logPatternDisable";
+  public static final String LOG_PATTERN_ENABLE = "logPatternEnable";
 
   private static String logFileName = null;
   private static int logLevel = LOG_3_INFO;
 
   private static LogPattern[] logPatterns;
-  public static final String SIMPLE_DATE_FORMAT_DATE = "yyyy-MM-dd";
+  private static LogPropertyProvider logPropertyProvider;
 
+  public static final String SIMPLE_DATE_FORMAT_DATE = "yyyy-MM-dd";
   public static final String SIMPLE_DATE_FORMAT_TIME = "HH:mm:ss.SSS";
   private static SimpleDateFormat simpleDateFormatDate = new SimpleDateFormat(SIMPLE_DATE_FORMAT_DATE);
   private static SimpleDateFormat simpleDateFormatTime = new SimpleDateFormat(SIMPLE_DATE_FORMAT_TIME);
@@ -228,6 +229,18 @@ public class Log
     }
   }
 
+  private static void initializeLogProperties()
+  {
+    String logPathName = logPropertyProvider.getLogPathName();
+    Log.setLogFileName(logPathName);
+
+    int logLevel = logPropertyProvider.getLogLevel();
+    Log.setLogLevel(logLevel);
+
+    LinkedHashMap<String, String> logPatterns = logPropertyProvider.getLogPatterns();
+    Log.setLogPatterns(logPatterns);
+  }
+
   public static boolean isLogDate()
   {
     return isLogDate;
@@ -333,6 +346,11 @@ public class Log
     }
   }
 
+  public static void setLogPropertyProvider(LogPropertyProvider logPropertyProvider)
+  {
+    Log.logPropertyProvider = logPropertyProvider;
+  }
+
   public static void setLogThread(boolean isLogThread)
   {
     Log.isLogThread = isLogThread;
@@ -368,6 +386,11 @@ public class Log
 
   private static void write(String logMessage)
   {
+    if (logPropertyProvider != null && logPropertyProvider.isLogPropertyInitializationRequired())
+    {
+      initializeLogProperties();
+    }
+
     if (logFileName == null)
     {
       System.out.println(logMessage);

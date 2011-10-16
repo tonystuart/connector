@@ -21,117 +21,190 @@ package com.semanticexpression.connector.server;
 
 import java.util.LinkedHashMap;
 
-public class ServerProperties
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+
+
+public class ServerProperties implements LogPropertyProvider
 {
-  private Configuration configuration;
-  
+  private Configuration logConfiguration;
+  private Configuration repositoryConfiguration;
+  private Configuration serverConfiguration;
+  private ServletConfig servletConfig;
+  private ServletContext servletContext;
+  private Configuration workflowConfiguration;
+
+  public ServerProperties(ServletConfig servletConfig)
+  {
+    this.servletConfig = servletConfig;
+    this.servletContext = servletConfig.getServletContext();
+
+    String serverConfigurationPathName = getServletConfigPathName("serverConfigurationPathName");
+    String repositoryConfigurationPathName = getServletConfigPathName("repositoryConfigurationPathName");
+    String workflowConfigurationPathName = getServletConfigPathName("workflowConfigurationPathName");
+    String logConfigurationPathName = getServletConfigPathName("logConfigurationPathName");
+
+    serverConfiguration = new Configuration(serverConfigurationPathName);
+    repositoryConfiguration = new Configuration(repositoryConfigurationPathName);
+    workflowConfiguration = new Configuration(workflowConfigurationPathName);
+    logConfiguration = new Configuration(logConfigurationPathName);
+  }
+
   public ServerProperties(String fileName)
   {
-    configuration = new Configuration(fileName);
-  }
-
-  public String getApplicationBaseUrl()
-  {
-    return configuration.get("applicationBaseUrl");
-  }
-
-  public int getAuthenticationTokenLength()
-  {
-    return configuration.getInt("authenticationTokenLength");
-  }
-
-  public int getCredentialTimeoutMillis()
-  {
-    return configuration.getInt("credentialTimeoutMillis");
-  }
-
-  public String getDatabaseUrl()
-  {
-    return configuration.get("databaseUrl");
-  }
-
-  public String getIndexDirectory()
-  {
-    return configuration.get("indexDirectory");
-  }
-
-  public String getLogFileName()
-  {
-    return configuration.get("logFileName", null);
-  }
-
-  public int getLogLevel()
-  {
-    return configuration.getInt("logLevel");
-  }
-
-  public LinkedHashMap<String, String> getLogPatterns()
-  {
-    return configuration.getAll("logPattern.*");
-  }
-
-  public String getMailerConfigurationFileName()
-  {
-    return configuration.get("mailerConfigurationFileName", null);
-  }
-
-  public int getMaximumConnections()
-  {
-    return configuration.getInt("maximumConnections");
-  }
-
-  public int getMaximumUploadSize()
-  {
-    return configuration.getInt("maximumUploadSize");
-  }
-
-  public int getStatusQueueTimeoutMillis()
-  {
-    return configuration.getInt("statusQueueTimeoutMillis");
-  }
-
-  public String getTemporaryDirectory()
-  {
-    return configuration.get("temporaryDirectory");
-  }
-
-  public String getWorkflowCompletionBody()
-  {
-    return configuration.get("workflowCompletionBody");
-  }
-
-  public String getWorkflowCompletionSubject()
-  {
-    return configuration.get("workflowCompletionSubject");
-  }
-
-  public String getWorkflowRejectionBody()
-  {
-    return configuration.get("workflowRejectionBody");
-  }
-
-  public String getWorkflowRejectionSubject()
-  {
-    return configuration.get("workflowRejectionSubject");
-  }
-
-  public String getWorkflowReadyBody()
-  {
-    return configuration.get("workflowReadyBody");
-  }
-
-  public String getWorkflowReadySubject()
-  {
-    return configuration.get("workflowReadySubject");
-  }
-
-  public boolean isAllowGuestAccess()
-  {
-    return configuration.getBoolean("isAllowGuestAccess");
+    serverConfiguration = new Configuration(fileName);
   }
 
   public int getAccountCreationOptions()
   {
-    return configuration.getInt("accountCreationOptions");
+    return serverConfiguration.getInt("accountCreationOptions");
   }
+
+  public LinkedHashMap<String, String> getAllowedSqlStates()
+  {
+    return repositoryConfiguration.getAll("allowedSqlState.*");
+  }
+
+  public String getApplicationBaseUrl()
+  {
+    return serverConfiguration.get("applicationBaseUrl");
+  }
+
+  public int getAuthenticationTokenLength()
+  {
+    return serverConfiguration.getInt("authenticationTokenLength");
+  }
+
+  public int getCredentialTimeoutMillis()
+  {
+    return serverConfiguration.getInt("credentialTimeoutMillis");
+  }
+
+  public String getDatabaseUrl()
+  {
+    return serverConfiguration.get("databaseUrl");
+  }
+
+  public String getEncryptedAdministrationPassword()
+  {
+    return serverConfiguration.get("encryptedAdministrationPassword");
+  }
+
+  public String getIndexDirectoryPathName()
+  {
+    String pathName = serverConfiguration.get("indexDirectoryPathName");
+    String realPathName = servletContext.getRealPath(pathName);
+    return realPathName;
+  }
+
+  @Override
+  public int getLogLevel()
+  {
+    return logConfiguration.getInt("logLevel");
+  }
+
+  @Override
+  public String getLogPathName()
+  {
+    String pathName = logConfiguration.get("logPathName", null);
+    String realPathName = servletContext.getRealPath(pathName);
+    return realPathName;
+  }
+
+  @Override
+  public LinkedHashMap<String, String> getLogPatterns()
+  {
+    return logConfiguration.getAll("logPattern.*");
+  }
+
+  public String getMailerSessionPropertiesPathName()
+  {
+    // Java Mail API requires Session Properties and cannot use a MailerPropertyProvider
+    String pathName = serverConfiguration.get("mailerSessionPropertiesPathName", null);
+    String realPathName = servletContext.getRealPath(pathName);
+    return realPathName;
+  }
+
+  public int getMaximumConnections()
+  {
+    return serverConfiguration.getInt("maximumConnections");
+  }
+
+  public int getMaximumUploadSize()
+  {
+    return serverConfiguration.getInt("maximumUploadSize");
+  }
+
+  public LinkedHashMap<String, String> getRepositoryDefinitions()
+  {
+    return repositoryConfiguration.getAll("repositoryDefinition.*");
+  }
+
+  public String getRootPathName()
+  {
+    String rootPathName = servletContext.getRealPath("/");
+    return rootPathName;
+  }
+
+  private String getServletConfigPathName(String name)
+  {
+    String value = servletConfig.getInitParameter(name);
+    String path = servletContext.getRealPath(value);
+    return path;
+  }
+
+  public int getStatusQueueTimeoutMillis()
+  {
+    return serverConfiguration.getInt("statusQueueTimeoutMillis");
+  }
+
+  public String getTemporaryDirectoryPathName()
+  {
+    String pathName = serverConfiguration.get("temporaryDirectoryPathName");
+    String realPathName = servletContext.getRealPath(pathName);
+    return realPathName;
+  }
+
+  public String getWorkflowCompletionBody()
+  {
+    return workflowConfiguration.get("workflowCompletionBody");
+  }
+
+  public String getWorkflowCompletionSubject()
+  {
+    return workflowConfiguration.get("workflowCompletionSubject");
+  }
+
+  public String getWorkflowReadyBody()
+  {
+    return workflowConfiguration.get("workflowReadyBody");
+  }
+
+  public String getWorkflowReadySubject()
+  {
+    return workflowConfiguration.get("workflowReadySubject");
+  }
+
+  public String getWorkflowRejectionBody()
+  {
+    return workflowConfiguration.get("workflowRejectionBody");
+  }
+
+  public String getWorkflowRejectionSubject()
+  {
+    return workflowConfiguration.get("workflowRejectionSubject");
+  }
+
+  public boolean isAllowGuestAccess()
+  {
+    return serverConfiguration.getBoolean("isAllowGuestAccess");
+  }
+
+  @Override
+  public boolean isLogPropertyInitializationRequired()
+  {
+    boolean isReload = logConfiguration.validateCache();
+    return isReload;
+  }
+
 }

@@ -71,17 +71,6 @@ public class Repository
   public Repository(String databaseUrl, int maximumConnections)
   {
     connectionPool = new ConnectionPool(databaseUrl, maximumConnections);
-
-    Connection connection = connectionPool.getConnection();
-    try
-    {
-      RepositoryCreator repositoryCreator = new RepositoryCreator();
-      repositoryCreator.initialize(connection, this);
-    }
-    finally
-    {
-      connectionPool.putConnection(connection);
-    }
   }
 
   public AccessAuthorization checkEntityAccess(Connection connection, Id userId, Id contentId, AccessRequested accessRequested)
@@ -1070,10 +1059,7 @@ public class Repository
     }
   }
 
-  @SuppressWarnings({
-      "unchecked",
-      "rawtypes"
-  })
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   private Object readEnum(Object rowValue)
   {
     try
@@ -1622,6 +1608,16 @@ public class Repository
     {
       Jdbc.close(preparedStatement);
     }
+  }
+
+  public Object retrieveProperty(Connection connection, Id entityId, String name, Date presentAt, Object defaultValue)
+  {
+    Object value = retrieveProperty(connection, entityId, name, presentAt);
+    if (value == null)
+    {
+      value = defaultValue;
+    }
+    return value;
   }
 
   /**

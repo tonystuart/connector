@@ -52,6 +52,7 @@ public class Resources
   public static final AbstractImagePrototype DOCUMENT_SOURCE = AbstractImagePrototype.create(ICONS.getDocumentSource());
   public static final AbstractImagePrototype EDITOR = AbstractImagePrototype.create(ICONS.getEditor());
   public static final AbstractImagePrototype EXPAND_ALL = AbstractImagePrototype.create(ICONS.getExpandAll());
+  public static final AbstractImagePrototype GROUPS = AbstractImagePrototype.create(ICONS.getGroups());
   public static final AbstractImagePrototype HEADING = AbstractImagePrototype.create(ICONS.getHeading());
   public static final AbstractImagePrototype HISTORY = AbstractImagePrototype.create(ICONS.getHistory());
   public static final AbstractImagePrototype HISTORY_CLEAR = AbstractImagePrototype.create(ICONS.getHistoryClear());
@@ -67,6 +68,7 @@ public class Resources
   public static final AbstractImagePrototype KEYWORD_REMOVE = AbstractImagePrototype.create(ICONS.getKeywordRemove());
   public static final AbstractImagePrototype LICENSE_AGREEMENT = AbstractImagePrototype.create(ICONS.getLicenseAgreement());
   public static final AbstractImagePrototype LOGIN = AbstractImagePrototype.create(ICONS.getLogin());
+  public static final AbstractImagePrototype ADMIN = AbstractImagePrototype.create(ICONS.getAdmin());
   public static final AbstractImagePrototype MONITOR = AbstractImagePrototype.create(ICONS.getMonitor());
   public static final AbstractImagePrototype MONITOR_PROPERTIES = AbstractImagePrototype.create(ICONS.getMonitorProperties());
   public static final AbstractImagePrototype NEXT = AbstractImagePrototype.create(ICONS.getNext());
@@ -94,6 +96,8 @@ public class Resources
   public static final AbstractImagePrototype SECTION = AbstractImagePrototype.create(ICONS.getSection());
   public static final AbstractImagePrototype SEND = AbstractImagePrototype.create(ICONS.getSend());
   public static final AbstractImagePrototype SPLIT = AbstractImagePrototype.create(ICONS.getSplit());
+  public static final AbstractImagePrototype SQL = AbstractImagePrototype.create(ICONS.getSql());
+  public static final AbstractImagePrototype SQL_RUN = AbstractImagePrototype.create(ICONS.getSqlRun());
   public static final AbstractImagePrototype STYLE = AbstractImagePrototype.create(ICONS.getStyle());
   public static final AbstractImagePrototype STYLE_ADD = AbstractImagePrototype.create(ICONS.getStyleAdd());
   public static final AbstractImagePrototype STYLE_APPLY = AbstractImagePrototype.create(ICONS.getStyleApply());
@@ -133,6 +137,7 @@ public class Resources
   public static final AbstractImagePrototype TEST_PANEL = AbstractImagePrototype.create(ICONS.getTestPanel());
   public static final AbstractImagePrototype TEXT = AbstractImagePrototype.create(ICONS.getText());
   public static final AbstractImagePrototype TILE = AbstractImagePrototype.create(ICONS.getTile());
+  public static final AbstractImagePrototype USERS = AbstractImagePrototype.create(ICONS.getUsers());
   public static final AbstractImagePrototype WORKFLOW = AbstractImagePrototype.create(ICONS.getWorkflow());
   public static final AbstractImagePrototype WORKFLOW_ADD = AbstractImagePrototype.create(ICONS.getWorkflowAdd());
   public static final AbstractImagePrototype WORKFLOW_EDIT = AbstractImagePrototype.create(ICONS.getWorkflowEdit());

@@ -48,6 +48,7 @@ import com.semanticexpression.connector.client.events.LoginEvent;
 import com.semanticexpression.connector.client.events.LogoutEvent;
 import com.semanticexpression.connector.client.events.SaveAllEvent;
 import com.semanticexpression.connector.client.events.WorkflowTaskUpdateEvent;
+import com.semanticexpression.connector.client.frame.admin.AdminFrame;
 import com.semanticexpression.connector.client.frame.editor.ContentReference;
 import com.semanticexpression.connector.client.frame.editor.EditorFrame;
 import com.semanticexpression.connector.client.frame.monitor.MonitorFrame;
@@ -69,6 +70,7 @@ import com.semanticexpression.connector.shared.Id;
 
 public class MainPanel extends FrameManager
 {
+  private Button adminButton;
   private Button createButton;
   private Html currentUserHtml;
   private String initialState;
@@ -116,6 +118,19 @@ public class MainPanel extends FrameManager
     List<Content> contentList = Directory.getContentManager().createDocument();
     EditorFrame editorFrame = new EditorFrame(contentList, true);
     addFrame(editorFrame);
+  }
+
+  public Button getAdminButton()
+  {
+    if (adminButton == null)
+    {
+      adminButton = new Button("Admin");
+      adminButton.setIcon(Resources.ADMIN);
+      adminButton.setToolTip("Open administrator window to manage system");
+      adminButton.setVisible(false);
+      adminButton.addSelectionListener(new AdminListener());
+    }
+    return adminButton;
   }
 
   public Button getCreateButton()
@@ -264,6 +279,7 @@ public class MainPanel extends FrameManager
       topToolBar.add(getSearchButton());
       topToolBar.add(getCreateButton());
       topToolBar.add(getMonitorButton());
+      topToolBar.add(getAdminButton());
       topToolBar.add(getSaveAllButton());
       topToolBar.add(getStatus());
       topToolBar.add(getTopFillToolItem());
@@ -290,7 +306,7 @@ public class MainPanel extends FrameManager
       }
       else if (token.equals("m"))
       {
-        monitor();
+        showMonitorPanel();
       }
       else if ((contentId = new Id()).parseString(token))
       {
@@ -301,11 +317,6 @@ public class MainPanel extends FrameManager
         }
       }
     }
-  }
-
-  public void monitor()
-  {
-    showMonitorPanel();
   }
 
   @Override
@@ -324,12 +335,14 @@ public class MainPanel extends FrameManager
    * We can't restore the history state requested at startup until we get the
    * credential information back from the server, so we cache the requested
    * state at startup and restore it here.
+   * @param isAdministrator 
    */
-  private void onCredentialChange(boolean isAccessPermitted, boolean isAuthenticated)
+  private void onCredentialChange(boolean isAccessPermitted, boolean isAuthenticated, boolean isAdministrator)
   {
     getSearchButton().setEnabled(isAccessPermitted);
     getCreateButton().setEnabled(isAccessPermitted);
     getMonitorButton().setEnabled(isAccessPermitted);
+    getAdminButton().setVisible(isAdministrator);
 
     if (isAccessPermitted)
     {
@@ -398,7 +411,12 @@ public class MainPanel extends FrameManager
     return searchFrame;
   }
 
-  private void showMonitorPanel()
+  public void showAdminPanel()
+  {
+    addFrame(new AdminFrame());
+  }
+
+  public void showMonitorPanel()
   {
     if (!getMonitorFrame().isVisible())
     {
@@ -421,12 +439,21 @@ public class MainPanel extends FrameManager
         break;
       case UNAUTHENTICATED:
         currentUserHtml.setHtml("<span class='connector-InlineHtml'>You have read only guest access. Click <span class='connector-InlineHyperLink'>here</span> to login.</span>");
-        onCredentialChange(true, false);
+        onCredentialChange(true, false, false);
         break;
       case AUTHENTICATED:
         currentUserHtml.setHtml("<span class='connector-InlineHtml'>You are logged in as " + userName + ". Click <span class='connector-InlineHyperLink'>here</span> to logout.</span>");
-        onCredentialChange(true, true);
+        boolean isAdministrator = credential.isAdministrator();
+        onCredentialChange(true, true, isAdministrator);
         break;
+    }
+  }
+
+  private class AdminListener extends SelectionListener<ButtonEvent>
+  {
+    public void componentSelected(ButtonEvent ce)
+    {
+      showAdminPanel();
     }
   }
 
@@ -524,7 +551,7 @@ public class MainPanel extends FrameManager
   {
     public void handleEvent(ComponentEvent be)
     {
-      onCredentialChange(false, false);
+      onCredentialChange(false, false, false);
       Directory.getEventBus().post(new LogoutEvent());
     }
   }
@@ -533,7 +560,7 @@ public class MainPanel extends FrameManager
   {
     public void componentSelected(ButtonEvent ce)
     {
-      monitor();
+      showMonitorPanel();
     }
   }
 

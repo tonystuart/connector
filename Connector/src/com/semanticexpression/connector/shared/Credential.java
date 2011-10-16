@@ -34,17 +34,19 @@ public class Credential implements Serializable
   private int accountCreationOptions;
   private String authenticationToken;
   private AuthenticationType authenticationType;
+  private boolean isAdministrator;
   private String userName;
 
   public Credential()
   {
   }
 
-  public Credential(AuthenticationType authenticationType, String authenticationToken, String userName, int accountCreationOptions)
+  public Credential(AuthenticationType authenticationType, String authenticationToken, String userName, boolean isAdministrator, int accountCreationOptions)
   {
     this.authenticationType = authenticationType;
     this.authenticationToken = authenticationToken;
     this.userName = userName;
+    this.isAdministrator = isAdministrator;
     this.accountCreationOptions = accountCreationOptions;
   }
 
@@ -66,6 +68,11 @@ public class Credential implements Serializable
   public String getUserName()
   {
     return userName;
+  }
+
+  public boolean isAdministrator()
+  {
+    return isAdministrator;
   }
 
   public void setAuthenticationToken(String authenticationToken)

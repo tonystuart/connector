@@ -27,6 +27,8 @@ import com.extjs.gxt.ui.client.data.PagingLoadConfig;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.semanticexpression.connector.client.rpc.ConnectorServiceAsync.MatchingNameType;
+import com.semanticexpression.connector.shared.AdminRequest;
+import com.semanticexpression.connector.shared.AdminResult;
 import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Content;
 import com.semanticexpression.connector.shared.Credential;
@@ -62,6 +64,8 @@ public interface ConnectorService extends RemoteService
   public Credential checkPersonalSecurityAnswer(String userName, String personalSecurityAnswer) throws ServerException, InvalidLoginCredentialsException, InvalidPersonalSecurityAnswer;
 
   public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey) throws ServerException, InvalidCaptchaException, DuplicateUserNameException, InvalidUserNameLengthException;
+
+  public AdminResult executeAdminRequest(String authenticationToken, AdminRequest adminRequest) throws ServerException, AuthenticationException, AuthorizationException;
 
   public Credential getCredential(String authenticationToken) throws ServerException;
 

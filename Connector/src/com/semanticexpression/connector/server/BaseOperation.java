@@ -106,6 +106,13 @@ public class BaseOperation
 
   protected Credential createCredential(Connection connection, Id userId, String userName)
   {
+    boolean isAdministrator = (Boolean)repository.retrieveProperty(connection, userId, Keys.IS_ADMINISTRATOR, null, false);
+    Credential credential = createCredential(connection, userId, userName, isAdministrator);
+    return credential;
+  }
+
+  protected Credential createCredential(Connection connection, Id userId, String userName, boolean isAdministrator)
+  {
     String authenticationToken;
 
     do
@@ -119,7 +126,7 @@ public class BaseOperation
     createProperty(connection, credentialId, Keys.USER_ID, userId, date, userId);
     createProperty(connection, credentialId, Keys.ACCESS_TIMESTAMP, date, date, userId);
     int accountCreationOptions = serverProperties.getAccountCreationOptions();
-    Credential credential = new Credential(AuthenticationType.AUTHENTICATED, authenticationToken, userName, accountCreationOptions);
+    Credential credential = new Credential(AuthenticationType.AUTHENTICATED, authenticationToken, userName, isAdministrator, accountCreationOptions);
     return credential;
   }
 
@@ -138,17 +145,18 @@ public class BaseOperation
       boolean isAllowGuestAccess = serverProperties.isAllowGuestAccess();
       if (isAllowGuestAccess)
       {
-        credential = new Credential(AuthenticationType.UNAUTHENTICATED, null, Credential.GUEST_USER, accountCreationOptions);
+        credential = new Credential(AuthenticationType.UNAUTHENTICATED, null, Credential.GUEST_USER, false, accountCreationOptions);
       }
       else
       {
-        credential = new Credential(AuthenticationType.AUTHENTICATION_REQUIRED, null, null, accountCreationOptions);
+        credential = new Credential(AuthenticationType.AUTHENTICATION_REQUIRED, null, null, false, accountCreationOptions);
       }
     }
     else
     {
       String userName = repository.retrieveEntityName(connection, userId);
-      credential = new Credential(AuthenticationType.AUTHENTICATED, authenticationToken, userName, accountCreationOptions);
+      boolean isAdministrator = (Boolean)repository.retrieveProperty(connection, userId, Keys.IS_ADMINISTRATOR, null, false);
+      credential = new Credential(AuthenticationType.AUTHENTICATED, authenticationToken, userName, isAdministrator, accountCreationOptions);
     }
     return credential;
   }

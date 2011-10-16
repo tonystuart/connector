@@ -33,6 +33,9 @@ public interface Icons extends ClientBundle
   @Source("account_create.png")
   ImageResource getAccountCreate();
 
+  @Source("admin.png")
+  ImageResource getAdmin();
+
   @Source("after.png")
   ImageResource getAfter();
 
@@ -101,6 +104,9 @@ public interface Icons extends ClientBundle
 
   @Source("expand_all.png")
   ImageResource getExpandAll();
+
+  @Source("groups.png")
+  ImageResource getGroups();
 
   @Source("heading.png")
   ImageResource getHeading();
@@ -228,6 +234,12 @@ public interface Icons extends ClientBundle
   @Source("split.png")
   ImageResource getSplit();
 
+  @Source("sql.png")
+  ImageResource getSql();
+
+  @Source("sql_run.png")
+  ImageResource getSqlRun();
+
   @Source("style.png")
   ImageResource getStyle();
 
@@ -344,6 +356,9 @@ public interface Icons extends ClientBundle
 
   @Source("tile.png")
   ImageResource getTile();
+
+  @Source("users.png")
+  ImageResource getUsers();
 
   @Source("workflow.png")
   ImageResource getWorkflow();

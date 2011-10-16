@@ -57,6 +57,7 @@ public class Keys
   public static final String IMAGE = "image";
   public static final String IMAGE_NATIVE_HEIGHT = "imageNativeHeight";
   public static final String IMAGE_NATIVE_WIDTH = "imageNativeWidth";
+  public static final String IS_ADMINISTRATOR = "isAdministrator";
   public static final String IS_PUBLISHER = "isPublisher";
   public static final String IS_REMEMBER_ME = "isRememberMe";
   public static final String KEYWORDS = "keywords";

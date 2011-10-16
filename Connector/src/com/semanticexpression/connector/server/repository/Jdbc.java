@@ -514,6 +514,18 @@ public final class Jdbc
     }
   }
 
+  public static ResultSet getResultSet(PreparedStatement preparedStatement)
+  {
+    try
+    {
+      return preparedStatement.getResultSet();
+    }
+    catch (SQLException e)
+    {
+      throw new SqlRuntimeException(e);
+    }
+  }
+
   public static int getRow(ResultSet resultSet)
   {
     try

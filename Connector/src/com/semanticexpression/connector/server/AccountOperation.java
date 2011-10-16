@@ -59,13 +59,18 @@ public class AccountOperation extends BaseOperation
       }
 
       Date date = new Date();
+      String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+      String encryptedAdministrationPassword = serverProperties.getEncryptedAdministrationPassword();
+      boolean isAdministrator = BCrypt.checkpw(password, encryptedAdministrationPassword);
+
       userId = repository.createEntity(connection, EntityType.USER, userName, null, Repository.SYSTEM_USER_ID, date);
-      createProperty(connection, userId, Keys.ENCRYPTED_PASSWORD, BCrypt.hashpw(password, BCrypt.gensalt()), date, userId);
+      createProperty(connection, userId, Keys.ENCRYPTED_PASSWORD, encryptedPassword, date, userId);
+      createProperty(connection, userId, Keys.IS_ADMINISTRATOR, isAdministrator, date, userId);
       createProperty(connection, userId, Keys.EMAIL_ADDRESS, emailAddress, date, userId);
       createProperty(connection, userId, Keys.PERSONAL_SECURITY_QUESTION, personalSecurityQuestion, date, userId);
       createProperty(connection, userId, Keys.PERSONAL_SECURITY_ANSWER, personalSecurityAnswer, date, userId);
 
-      Credential credential = createCredential(connection, userId, userName);
+      Credential credential = createCredential(connection, userId, userName, isAdministrator);
       Jdbc.setAutoCommit(connection, true);
       return credential;
     }

@@ -6,13 +6,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>Connector</display-name>
 
-	<!-- Servlets -->
 	<servlet>
 		<servlet-name>connectorServiceServlet</servlet-name>
 		<servlet-class>com.semanticexpression.connector.server.ConnectorServiceImpl</servlet-class>
 		<init-param>
-			<param-name>serverConfigurationFileName</param-name>
+			<param-name>serverConfigurationPathName</param-name>
 			<param-value>config/server.cfg</param-value>
+		</init-param>
+		<init-param>
+			<param-name>repositoryConfigurationPathName</param-name>
+			<param-value>config/repository.cfg</param-value>
+		</init-param>
+		<init-param>
+			<param-name>workflowConfigurationPathName</param-name>
+			<param-value>config/workflow.cfg</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logConfigurationPathName</param-name>
+			<param-value>config/log.cfg</param-value>
 		</init-param>
 	</servlet>
 
@@ -71,7 +82,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/static/*</url-pattern> <!-- see UrlConstants.java -->
 	</servlet-mapping>
 
-	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>Connector.html</welcome-file>
 	</welcome-file-list>

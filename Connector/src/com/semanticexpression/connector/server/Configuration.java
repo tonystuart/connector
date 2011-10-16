@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+
 public class Configuration
 {
   private long cacheLastModified;
@@ -52,6 +53,16 @@ public class Configuration
     }
   }
 
+  public String get(String name)
+  {
+    String value = get(name, null);
+    if (value == null)
+    {
+      throw new IllegalArgumentException("Undefined key, name=" + name);
+    }
+    return value;
+  }
+
   public String get(String name, String defaultValue)
   {
     validateCache();
@@ -64,18 +75,9 @@ public class Configuration
     return value;
   }
 
-  public String get(String name)
-  {
-    String value = get(name, null);
-    if (value == null)
-    {
-      throw new IllegalArgumentException("Undefined key, name=" + name);
-    }
-    return value;
-  }
-
   public LinkedHashMap<String, String> getAll(String regularExpression)
   {
+    validateCache();
     Pattern pattern = Pattern.compile(regularExpression);
     LinkedHashMap<String, String> treeMap = new LinkedHashMap<String, String>();
     for (Entry<String, String> entry : configurationCache.entrySet())
@@ -88,6 +90,13 @@ public class Configuration
       }
     }
     return treeMap;
+  }
+
+  public boolean getBoolean(String name)
+  {
+    String stringValue = get(name);
+    boolean value = Boolean.parseBoolean(stringValue);
+    return value;
   }
 
   public String getFormatted(String name, Object... arguments)
@@ -104,27 +113,23 @@ public class Configuration
     return value;
   }
 
-  public boolean getBoolean(String name)
-  {
-    String stringValue = get(name);
-    boolean value = Boolean.parseBoolean(stringValue);
-    return value;
-  }
-
   public void loadCache(File file)
   {
     ConfigurationFileReader configurationFileReader = new ConfigurationFileReader(file);
     configurationCache = configurationFileReader.read();
   }
 
-  private void validateCache()
+  boolean validateCache()
   {
+    boolean isReload = false;
     long fileLastModified = file.lastModified();
     if (fileLastModified > cacheLastModified)
     {
       loadCache(file);
       cacheLastModified = fileLastModified;
+      isReload = true;
     }
+    return isReload;
   }
 
   private class ConfigurationFileReader

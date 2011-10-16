@@ -27,6 +27,8 @@ import com.extjs.gxt.ui.client.data.PagingLoadConfig;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.semanticexpression.connector.client.Utility;
 import com.semanticexpression.connector.client.rpc.LoginRetryAsyncCallback.LoginCallbackAdapter;
+import com.semanticexpression.connector.shared.AdminRequest;
+import com.semanticexpression.connector.shared.AdminResult;
 import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Content;
 import com.semanticexpression.connector.shared.Credential;
@@ -77,6 +79,12 @@ public class ConnectorServiceClientProxy implements ConnectorServiceAsync
   public void createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey, AsyncCallback<Credential> callback)
   {
     connectorServiceAsync.createAccount(userName, password, emailAddress, personalSecurityQuestion, personalSecurityAnswer, captchaKey, callback);
+  }
+
+  @Override
+  public void executeAdminRequest(String authenticationToken, AdminRequest adminRequest, AsyncCallback<AdminResult> callback)
+  {
+    connectorServiceAsync.executeAdminRequest(authenticationToken, adminRequest, callback);
   }
 
   @Override
