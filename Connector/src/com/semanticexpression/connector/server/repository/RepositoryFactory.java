@@ -22,10 +22,10 @@ package com.semanticexpression.connector.server.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.google.gwt.dev.util.collect.HashMap;
 import com.semanticexpression.connector.server.Log;
 import com.semanticexpression.connector.server.ParameterSubstituter;
 import com.semanticexpression.connector.server.ServerProperties;
