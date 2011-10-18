@@ -30,6 +30,7 @@ import com.semanticexpression.connector.shared.Credential;
 import com.semanticexpression.connector.shared.Id;
 import com.semanticexpression.connector.shared.Keys;
 import com.semanticexpression.connector.shared.exception.DuplicateUserNameException;
+import com.semanticexpression.connector.shared.exception.InvalidPersonalSecurityAnswer;
 import com.semanticexpression.connector.shared.exception.InvalidUserNameLengthException;
 
 public class AccountOperation extends BaseOperation
@@ -40,7 +41,7 @@ public class AccountOperation extends BaseOperation
     super(serverContext);
   }
 
-  public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer) throws DuplicateUserNameException, InvalidUserNameLengthException
+  public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer) throws DuplicateUserNameException, InvalidUserNameLengthException, InvalidPersonalSecurityAnswer
   {
     Connection connection = repository.getConnectionPool().getConnection();
     try
@@ -66,14 +67,20 @@ public class AccountOperation extends BaseOperation
         isAdministrator = BCrypt.checkpw(password, encryptedAdministrationPassword);
       }
       
-      Date date = new Date();
+      String alphaNumericPersonalSecurityAnswer = Utility.getAlphaNumeric(personalSecurityAnswer);
+      if (alphaNumericPersonalSecurityAnswer.isEmpty())
+      {
+        throw new InvalidPersonalSecurityAnswer();
+      }
+      String encryptedPersonalSecurityAnswer = BCrypt.hashpw(alphaNumericPersonalSecurityAnswer, BCrypt.gensalt());
       
+      Date date = new Date();
       userId = repository.createEntity(connection, EntityType.USER, userName, null, Repository.SYSTEM_USER_ID, date);
       createProperty(connection, userId, Keys.ENCRYPTED_PASSWORD, encryptedPassword, date, userId);
       createProperty(connection, userId, Keys.IS_ADMINISTRATOR, isAdministrator, date, userId);
       createProperty(connection, userId, Keys.EMAIL_ADDRESS, emailAddress, date, userId);
       createProperty(connection, userId, Keys.PERSONAL_SECURITY_QUESTION, personalSecurityQuestion, date, userId);
-      createProperty(connection, userId, Keys.PERSONAL_SECURITY_ANSWER, personalSecurityAnswer, date, userId);
+      createProperty(connection, userId, Keys.ENCRYPTED_PERSONAL_SECURITY_ANSWER, encryptedPersonalSecurityAnswer, date, userId);
 
       Credential credential = createCredential(connection, userId, userName, isAdministrator);
       Jdbc.setAutoCommit(connection, true);

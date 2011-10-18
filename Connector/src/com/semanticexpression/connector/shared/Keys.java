@@ -44,6 +44,7 @@ public class Keys
   public static final String DERIVED_FROM = "derivedFrom";
   public static final String EMAIL_ADDRESS = "emailAddress";
   public static final String ENCRYPTED_PASSWORD = "encryptedPassword";
+  public static final String ENCRYPTED_PERSONAL_SECURITY_ANSWER = "encryptedPersonalSecurityAnswer";
   public static final String FILE_NAME = "fileName";
   public static final String FORMULA = "formula";
   public static final String FORMULA_FIRST_COLUMN = "formulaFirstColumn";
@@ -68,7 +69,6 @@ public class Keys
   public static final String MODIFIED_BY = "modifiedBy";
   public static final String NAME = "name";
   public static final String PARTS = "parts";
-  public static final String PERSONAL_SECURITY_ANSWER = "personalSecurityAnswer";
   public static final String PERSONAL_SECURITY_QUESTION = "personalSecurityQuestion";
   public static final String PROPERTIES = "properties";
   public static final String RELATIONSHIP_TYPE = "relationshipType";

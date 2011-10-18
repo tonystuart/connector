@@ -63,7 +63,7 @@ public interface ConnectorService extends RemoteService
 
   public Credential checkPersonalSecurityAnswer(String userName, String personalSecurityAnswer) throws ServerException, InvalidLoginCredentialsException, InvalidPersonalSecurityAnswer;
 
-  public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey) throws ServerException, InvalidCaptchaException, DuplicateUserNameException, InvalidUserNameLengthException;
+  public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey) throws ServerException, InvalidCaptchaException, DuplicateUserNameException, InvalidUserNameLengthException, InvalidPersonalSecurityAnswer;
 
   public AdminResult executeAdminRequest(String authenticationToken, AdminRequest adminRequest) throws ServerException, AuthenticationException, AuthorizationException;
 

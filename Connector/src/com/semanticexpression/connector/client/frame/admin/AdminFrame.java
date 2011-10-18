@@ -269,8 +269,15 @@ public class AdminFrame extends Frame
       {
         if (statementTextArea == null)
         {
-          statementTextArea = new PositionRetainingTextArea();
-          statementTextArea.setBorders(false);
+          statementTextArea = new PositionRetainingTextArea()
+          {
+            @Override
+            protected void onRender(com.google.gwt.user.client.Element target, int index)
+            {
+              super.onRender(target, index);
+              getInputEl().setStyleAttribute("border", "none"); // See TextArea.java
+            }
+          };
         }
         return statementTextArea;
       }

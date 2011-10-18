@@ -23,6 +23,7 @@ import java.sql.Connection;
 
 import com.semanticexpression.connector.server.repository.EntityType;
 import com.semanticexpression.connector.server.repository.Jdbc;
+import com.semanticexpression.connector.server.thirdparty.BCrypt;
 import com.semanticexpression.connector.shared.Credential;
 import com.semanticexpression.connector.shared.Id;
 import com.semanticexpression.connector.shared.Keys;
@@ -36,7 +37,7 @@ public class PersonalSecurityOperation extends BaseOperation
     super(serverContext);
   }
 
-  public Credential checkPersonalSecurityAnswer(String userName, String newPersonalSecurityAnswer) throws InvalidLoginCredentialsException, InvalidPersonalSecurityAnswer
+  public Credential checkPersonalSecurityAnswer(String userName, String personalSecurityAnswer) throws InvalidLoginCredentialsException, InvalidPersonalSecurityAnswer
   {
     Connection connection = repository.getConnectionPool().getConnection();
     try
@@ -48,8 +49,9 @@ public class PersonalSecurityOperation extends BaseOperation
         throw new InvalidLoginCredentialsException();
       }
 
-      String oldPersonalSecurityAnswer = (String)retrieveProperty(connection, userId, Keys.PERSONAL_SECURITY_ANSWER);
-      if (!Utility.fuzzyEquals(newPersonalSecurityAnswer, oldPersonalSecurityAnswer))
+      String alphaNumericPersonalSecurityAnswer = Utility.getAlphaNumeric(personalSecurityAnswer);
+      String encryptedPersonalSecurityAnswer = (String)retrieveProperty(connection, userId, Keys.ENCRYPTED_PERSONAL_SECURITY_ANSWER);
+      if (!BCrypt.checkpw(alphaNumericPersonalSecurityAnswer, encryptedPersonalSecurityAnswer))
       {
         throw new InvalidPersonalSecurityAnswer();
       }

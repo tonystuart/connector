@@ -131,7 +131,7 @@ public class ConnectorServiceImpl extends RemoteServiceServlet implements Connec
   }
 
   @Override
-  public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey) throws ServerException, InvalidCaptchaException, DuplicateUserNameException, InvalidUserNameLengthException
+  public Credential createAccount(String userName, String password, String emailAddress, String personalSecurityQuestion, String personalSecurityAnswer, String captchaKey) throws ServerException, InvalidCaptchaException, DuplicateUserNameException, InvalidUserNameLengthException, InvalidPersonalSecurityAnswer
   {
     try
     {

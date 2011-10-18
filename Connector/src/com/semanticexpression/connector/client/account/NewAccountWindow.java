@@ -42,6 +42,7 @@ import com.semanticexpression.connector.client.wiring.EventListener;
 import com.semanticexpression.connector.shared.Credential;
 import com.semanticexpression.connector.shared.exception.DuplicateUserNameException;
 import com.semanticexpression.connector.shared.exception.InvalidCaptchaException;
+import com.semanticexpression.connector.shared.exception.InvalidPersonalSecurityAnswer;
 import com.semanticexpression.connector.shared.exception.InvalidUserNameLengthException;
 
 public final class NewAccountWindow extends Wizard
@@ -530,10 +531,15 @@ public final class NewAccountWindow extends Wizard
         MessageBox.alert("Invalid User Name", "The supplied user name is too long. The maximum length of a user name is " + ((InvalidUserNameLengthException)throwable).getMaximumLength() + " characters.", null);
         setFocusWidget(getUserNameSafeTextField());
       }
+      else if (throwable instanceof InvalidPersonalSecurityAnswer)
+      {
+        MessageBox.alert("Invalid Personal Security Answer", "The personal security answer must contain at least one letter or digit.", null);
+        setFocusWidget(getPersonalSecurityAnswerTextField());
+      }
       else if (throwable instanceof InvalidCaptchaException)
       {
         MessageBox.alert("Invalid Security Key", "The security key does not match the characters in the image. If you are having trouble reading the characters, click on the image to generate a new one.", null);
-        setFocusWidget(captchaKeySafeTextField);
+        setFocusWidget(getCaptchaKeySafeTextField());
       }
       else
       {
