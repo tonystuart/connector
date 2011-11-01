@@ -46,11 +46,28 @@ public class StyleNester
 
     if (left.getNodeType() != Node.TEXT_NODE)
     {
-      // Zoom in until we find a text node (offset is a node offset, not a character offset)
+      // Descend until we find a text node (offset in text nodes is character offset, in other nodes is node offset)
       while (left.getNodeType() != Node.TEXT_NODE)
       {
-        left = left.getChild(leftOffset);
-        leftOffset = 0;
+        Node child = left.getChild(leftOffset);
+        if (child.getNodeType() == Node.TEXT_NODE)
+        {
+          leftOffset = 0;
+          left = child;
+        }
+        else
+        {
+          int childCount = child.getChildCount();
+          if (childCount == 0) // skip nodes without children (e.g. in-line nodes such as break at beginning of list item)
+          {
+            leftOffset++;
+          }
+          else
+          {
+            leftOffset = 0;
+            left = child;
+          }
+        }
       }
     }
     else if (leftOffset == left.getNodeValue().length())
@@ -63,12 +80,25 @@ public class StyleNester
 
     if (right.getNodeType() != Node.TEXT_NODE)
     {
-      // Zoom in until we find a text node (offset is a offset of next node, not a offset of next character)
+      // Descend until we find a text node (offset in text nodes is character offset, in other nodes is node offset)
       while (right.getNodeType() != Node.TEXT_NODE)
       {
         rightOffset--;
-        right = right.getChild(rightOffset);
-        rightOffset = right.getNodeType() == Node.TEXT_NODE ? right.getNodeValue().length() : right.getChildCount();
+        Node child = right.getChild(rightOffset);
+        if (child.getNodeType() == Node.TEXT_NODE)
+        {
+          rightOffset = child.getNodeValue().length();
+          right = child;
+        }
+        else
+        {
+          int childCount = child.getChildCount();
+          if (childCount > 0) // skip nodes without children (e.g. in-line nodes such as break at end of list item)
+          {
+            rightOffset = childCount;
+            right = child;
+          }
+        }
       }
     }
     else if (rightOffset == 0)
