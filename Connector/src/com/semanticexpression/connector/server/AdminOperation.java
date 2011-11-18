@@ -15,6 +15,7 @@ import com.semanticexpression.connector.shared.AdminRequest;
 import com.semanticexpression.connector.shared.AdminResult;
 import com.semanticexpression.connector.shared.Id;
 import com.semanticexpression.connector.shared.Keys;
+import com.semanticexpression.connector.shared.SafeHtml;
 import com.semanticexpression.connector.shared.exception.AuthenticationException;
 
 public class AdminOperation extends BaseOperation
@@ -53,6 +54,10 @@ public class AdminOperation extends BaseOperation
           {
             String columnName = columnNames.get(columnOffset);
             Object value = Jdbc.getObject(resultSet, columnNumber);
+            if (value instanceof String)
+            {
+              value = SafeHtml.escape((String)value);
+            }
             row.set(columnName, value);
           }
           rows.add(row);
