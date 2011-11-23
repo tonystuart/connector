@@ -131,7 +131,7 @@ public final class LoginWindow extends DefaultButtonWindow
   {
     if (createAccountHtml == null)
     {
-      createAccountHtml = new Html("New to Connector? Click <span class=\"Connector-InlineHyperLink\">here</span> to create an account.");
+      createAccountHtml = new Html("New to Connector? Click <span class=\"connector-InlineHyperLink\">here</span> to create an account.");
       createAccountHtml.setSize("339px", "14px");
       createAccountHtml.setStyleName("connector-Centered");
       createAccountHtml.sinkEvents(Events.OnClick.getEventCode());
@@ -183,7 +183,7 @@ public final class LoginWindow extends DefaultButtonWindow
   {
     if (recoverPasswordHtml == null)
     {
-      recoverPasswordHtml = new Html("Forgot your password? Click <span class=\"Connector-InlineHyperLink\">here</span> to recover it.");
+      recoverPasswordHtml = new Html("Forgot your password? Click <span class=\"connector-InlineHyperLink\">here</span> to recover it.");
       recoverPasswordHtml.setStyleName("connector-Centered");
       recoverPasswordHtml.setSize("339px", "14px");
       recoverPasswordHtml.sinkEvents(Events.OnClick.getEventCode());

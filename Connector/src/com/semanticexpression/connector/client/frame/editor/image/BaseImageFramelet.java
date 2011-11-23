@@ -62,7 +62,7 @@ public abstract class BaseImageFramelet extends BaseEditor
         maximizedDimension = getScaledDimension();
       }
       String imageUrlString = getImageUrlString();
-      html = "<img src='" + imageUrlString + "' " + maximizedDimension + " alt='" + emptyText + "' />";
+      html = "<img src='" + imageUrlString + "' " + maximizedDimension + " alt='" + emptyText + "' style='vertical-align: top;' />"; // vertical-align to prevent scroll bars in standards mode
     }
     getImageHtml().setHtml(html);
   }
