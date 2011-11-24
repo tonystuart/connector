@@ -22,6 +22,9 @@ package com.semanticexpression.connector.client;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.widget.form.CheckBox;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Frame;
 import com.semanticexpression.connector.client.icons.Resources;
 import com.semanticexpression.connector.client.widget.ConnectorWindow;
@@ -40,7 +43,7 @@ public final class LicenseWindow extends ConnectorWindow
   public LicenseWindow(OkayCancelHandler okayCancelHandler)
   {
     this.okayCancelHandler = okayCancelHandler;
-    
+
     setHeading("License Agreement");
     setIcon(Resources.LICENSE_AGREEMENT);
     setSize(600, 400);
@@ -73,9 +76,7 @@ public final class LicenseWindow extends ConnectorWindow
   {
     if (frame == null)
     {
-      ClientUrlBuilder clientUrlBuilder = new ClientUrlBuilder(UrlConstants.URL_STATIC_LICENSE);
-      String url = clientUrlBuilder.toString();
-      frame = new Frame(url);
+      frame = new Frame(); // defer set of url until iframe is attached
       frame.getElement().setPropertyInt("frameBorder", 0);
       frame.getElement().getStyle().setBackgroundColor("white");
     }
@@ -90,6 +91,23 @@ public final class LicenseWindow extends ConnectorWindow
       okayCancelToolBar.insert(getAcceptLicenseCheckBox(), 0);
     }
     return okayCancelToolBar;
+  }
+
+  @Override
+  protected void onRender(Element parent, int pos)
+  {
+    super.onRender(parent, pos);
+
+    Scheduler.get().scheduleDeferred(new ScheduledCommand()
+    {
+      @Override
+      public void execute()
+      {
+        ClientUrlBuilder clientUrlBuilder = new ClientUrlBuilder(UrlConstants.URL_STATIC_LICENSE);
+        String url = clientUrlBuilder.toString();
+        frame.setUrl(url);
+      }
+    });
   }
 
   protected void updateFormState()
