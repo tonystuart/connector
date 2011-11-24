@@ -23,7 +23,7 @@ import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.widget.form.CheckBox;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Frame;
 import com.semanticexpression.connector.client.icons.Resources;
@@ -98,16 +98,17 @@ public final class LicenseWindow extends ConnectorWindow
   {
     super.onRender(parent, pos);
 
-    Scheduler.get().scheduleDeferred(new ScheduledCommand()
+    Scheduler.get().scheduleFixedDelay(new RepeatingCommand()
     {
       @Override
-      public void execute()
+      public boolean execute()
       {
         ClientUrlBuilder clientUrlBuilder = new ClientUrlBuilder(UrlConstants.URL_STATIC_LICENSE);
         String url = clientUrlBuilder.toString();
         frame.setUrl(url);
+        return false;
       }
-    });
+    }, 1000);
   }
 
   protected void updateFormState()
