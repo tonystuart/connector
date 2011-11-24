@@ -30,14 +30,13 @@ import com.extjs.gxt.ui.client.event.WindowEvent;
 import com.extjs.gxt.ui.client.util.Rectangle;
 import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.Header;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.WindowManager;
 import com.extjs.gxt.ui.client.widget.button.IconButton;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 
-public class Frame extends Window
+public class Frame extends ConnectorWindow
 {
   public static final EventType CloseButton = new EventType();
   public static final EventType HeadingChange = new EventType();

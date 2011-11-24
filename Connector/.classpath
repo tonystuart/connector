@@ -14,7 +14,7 @@
 			<attribute name="javadoc_location" value="file:/opt/javamail-1.4.4/docs/javadocs/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar" sourcepath="/opt/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.r37v201109211906/gwt-2.4.0/gwt-user.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>

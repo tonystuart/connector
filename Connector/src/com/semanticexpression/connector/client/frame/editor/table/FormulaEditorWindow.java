@@ -25,13 +25,13 @@ import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Text;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.layout.FitData;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
 import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.semanticexpression.connector.client.icons.Resources;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.Numeric;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
@@ -40,7 +40,7 @@ import com.semanticexpression.connector.client.widget.SafeTextField;
 import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Keys;
 
-public final class FormulaEditorWindow extends Window implements OkayCancelHandler
+public final class FormulaEditorWindow extends ConnectorWindow implements OkayCancelHandler
 {
   private static final RowData FIELD_ROW_DATA = new RowData(1.0, Style.DEFAULT);
   private static final Margins LABEL_MARGINS = new Margins(5, 0, 0, 0);

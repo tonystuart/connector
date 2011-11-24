@@ -22,10 +22,9 @@ package com.semanticexpression.connector.client.widget;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.util.KeyNav;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.button.Button;
 
-public class DefaultButtonWindow extends Window
+public class DefaultButtonWindow extends ConnectorWindow
 {
   private Button defaultButton;
 

@@ -21,16 +21,16 @@ package com.semanticexpression.connector.client.frame.editor.workflow;
 
 import java.util.Date;
 
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.layout.FitData;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.semanticexpression.connector.client.icons.Resources;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
 import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Keys;
 
-public final class TaskCompleteWindow extends Window implements OkayCancelHandler
+public final class TaskCompleteWindow extends ConnectorWindow implements OkayCancelHandler
 {
   private Association association;
   private DateNamePanel completionNameDatePanel;

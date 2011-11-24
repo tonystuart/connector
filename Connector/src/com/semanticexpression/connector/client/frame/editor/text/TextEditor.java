@@ -33,7 +33,6 @@ import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.button.ToolButton;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
@@ -50,14 +49,15 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.semanticexpression.connector.client.events.TextEditorUpdateEvent;
-import com.semanticexpression.connector.client.frame.editor.DetailsPanelComponent;
 import com.semanticexpression.connector.client.frame.editor.ContentReference;
+import com.semanticexpression.connector.client.frame.editor.DetailsPanelComponent;
 import com.semanticexpression.connector.client.frame.editor.EditorFrame;
 import com.semanticexpression.connector.client.frame.editor.EditorFrame.ModificationContext;
 import com.semanticexpression.connector.client.frame.editor.HasCompareHistory;
 import com.semanticexpression.connector.client.frame.editor.comment.CommentEditor;
 import com.semanticexpression.connector.client.frame.editor.style.StyleFramelet;
 import com.semanticexpression.connector.client.icons.Resources;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.Framelet;
 import com.semanticexpression.connector.client.wiring.Directory;
 import com.semanticexpression.connector.shared.Association;
@@ -492,7 +492,7 @@ public final class TextEditor extends LayoutContainer implements DetailsPanelCom
     }
   }
 
-  public class SourceWindow extends Window
+  public class SourceWindow extends ConnectorWindow
   {
     private TextArea textArea;
 

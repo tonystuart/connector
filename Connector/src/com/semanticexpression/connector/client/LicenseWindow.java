@@ -20,16 +20,16 @@
 package com.semanticexpression.connector.client;
 
 import com.extjs.gxt.ui.client.event.ComponentEvent;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.form.CheckBox;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.user.client.ui.Frame;
 import com.semanticexpression.connector.client.icons.Resources;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
 import com.semanticexpression.connector.shared.UrlConstants;
 
-public final class LicenseWindow extends Window
+public final class LicenseWindow extends ConnectorWindow
 {
   private CheckBox acceptLicenseCheckBox;
 

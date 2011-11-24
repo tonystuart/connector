@@ -26,7 +26,6 @@ import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.Container;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.CardLayout;
@@ -37,7 +36,7 @@ import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.google.gwt.user.client.ui.Widget;
 import com.semanticexpression.connector.client.icons.Resources;
 
-public abstract class Wizard extends Window
+public abstract class Wizard extends ConnectorWindow
 {
   private Button actionButton;
   private AbstractImagePrototype actionIcon;

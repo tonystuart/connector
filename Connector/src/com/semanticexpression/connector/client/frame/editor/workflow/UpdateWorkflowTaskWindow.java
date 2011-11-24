@@ -26,7 +26,6 @@ import com.extjs.gxt.ui.client.Style.Orientation;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.Text;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
 import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.semanticexpression.connector.client.Utility;
@@ -34,6 +33,7 @@ import com.semanticexpression.connector.client.events.WorkflowTaskUpdateEvent;
 import com.semanticexpression.connector.client.frame.editor.EditorFrame;
 import com.semanticexpression.connector.client.icons.Resources;
 import com.semanticexpression.connector.client.rpc.FailureReportingAsyncCallback;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.DropDownComboBox;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
@@ -44,7 +44,7 @@ import com.semanticexpression.connector.shared.Id;
 import com.semanticexpression.connector.shared.Keys;
 import com.semanticexpression.connector.shared.WorkflowConstants;
 
-public final class UpdateWorkflowTaskWindow extends Window implements OkayCancelHandler
+public final class UpdateWorkflowTaskWindow extends ConnectorWindow implements OkayCancelHandler
 {
   private EditorFrame editorFrame;
   private OkayCancelToolBar okayCancelToolBar;

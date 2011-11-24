@@ -20,11 +20,10 @@
 package com.semanticexpression.connector.client.widget;
 
 import com.extjs.gxt.ui.client.store.ListStore;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
 import com.semanticexpression.connector.shared.Association;
 
-public abstract class ListStoreEditorWindow extends Window implements OkayCancelHandler
+public abstract class ListStoreEditorWindow extends ConnectorWindow implements OkayCancelHandler
 {
   protected Association association;
   protected boolean isNew;

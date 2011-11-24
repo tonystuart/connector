@@ -19,12 +19,12 @@
 
 package com.semanticexpression.connector.client.frame.editor.image;
 
-import com.extjs.gxt.ui.client.widget.Window;
 import com.semanticexpression.connector.client.frame.editor.ContentReference;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
 
-public class BaseImagePropertyEditorWindow extends Window implements OkayCancelHandler
+public class BaseImagePropertyEditorWindow extends ConnectorWindow implements OkayCancelHandler
 {
   protected ContentReference contentReference;
   private OkayCancelToolBar okayCancelToolBar;

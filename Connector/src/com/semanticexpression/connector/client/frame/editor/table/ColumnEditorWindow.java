@@ -29,7 +29,6 @@ import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.Text;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.form.DateField;
 import com.extjs.gxt.ui.client.widget.form.SpinnerField;
 import com.extjs.gxt.ui.client.widget.layout.FitData;
@@ -39,6 +38,7 @@ import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.semanticexpression.connector.client.frame.editor.table.NavigationToolBar.NavigationHandler;
 import com.semanticexpression.connector.client.icons.Resources;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.DropDownComboBox;
 import com.semanticexpression.connector.client.widget.IntegerSpinnerField;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
@@ -49,7 +49,7 @@ import com.semanticexpression.connector.shared.Association;
 import com.semanticexpression.connector.shared.Keys;
 import com.semanticexpression.connector.shared.Sequence;
 
-public final class ColumnEditorWindow extends Window implements OkayCancelHandler
+public final class ColumnEditorWindow extends ConnectorWindow implements OkayCancelHandler
 {
   private static final RowData FIELD_ROW_DATA = new RowData(1.0, Style.DEFAULT);
   private static final String HEADING = "Column Editor";

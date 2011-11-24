@@ -29,7 +29,6 @@ import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.Text;
-import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.form.AdapterField;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
@@ -37,13 +36,14 @@ import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.semanticexpression.connector.client.frame.editor.ContentReference;
 import com.semanticexpression.connector.client.icons.Resources;
+import com.semanticexpression.connector.client.widget.ConnectorWindow;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar;
-import com.semanticexpression.connector.client.widget.SafeTextArea;
 import com.semanticexpression.connector.client.widget.OkayCancelToolBar.OkayCancelHandler;
+import com.semanticexpression.connector.client.widget.SafeTextArea;
 import com.semanticexpression.connector.shared.HtmlConstants;
 import com.semanticexpression.connector.shared.Keys;
 
-public final class DefaultStyleEditorWindow extends Window implements OkayCancelHandler
+public final class DefaultStyleEditorWindow extends ConnectorWindow implements OkayCancelHandler
 {
   private static final String PREVIEW_HTML = //
   "<h1>Heading 1</h1>\n" + //
