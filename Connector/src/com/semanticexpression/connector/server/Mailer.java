@@ -89,7 +89,7 @@ public class Mailer
     {
       if (Boolean.parseBoolean((String)properties.get("mailer.exception.log")))
       {
-        writeMailExceptionToLog(e, "send");
+        writeMailExceptionToLog(e);
       }
       if (Boolean.parseBoolean((String)properties.get("mailer.exception.rethrow")))
       {
@@ -116,10 +116,11 @@ public class Mailer
     return internetAddresses;
   }
 
-  private void writeMailExceptionToLog(Exception e, String method)
+  private void writeMailExceptionToLog(Exception e)
   {
     do
     {
+      Log.error("Mailer.writeMailExceptionToLog: an exception occurred sending mail, e=%s", e.toString());
       if (e instanceof SendFailedException)
       {
         SendFailedException sendFailedException = (SendFailedException)e;
@@ -128,7 +129,7 @@ public class Mailer
         {
           for (int i = 0; i < invalidAddresses.length; i++)
           {
-            Log.error("Mailer.%s: invalidAddress=%s", method, invalidAddresses[i]);
+            Log.error("Mailer.writeMailExceptionToLog: invalidAddress=%s", invalidAddresses[i]);
           }
         }
         Address[] validUnsent = sendFailedException.getValidUnsentAddresses();
@@ -136,7 +137,7 @@ public class Mailer
         {
           for (int i = 0; i < validUnsent.length; i++)
           {
-            Log.error("Mailer.%s: validUnsent=%s", method, validUnsent[i]);
+            Log.error("Mailer.writeMailExceptionToLog: validUnsent=%s", validUnsent[i]);
           }
         }
         Address[] validSent = sendFailedException.getValidSentAddresses();
@@ -144,13 +145,9 @@ public class Mailer
         {
           for (int i = 0; i < validSent.length; i++)
           {
-            Log.error("Mailer.%s: validSent=%s", method, validSent[i]);
+            Log.error("Mailer.writeMailExceptionToLog: validSent=%s", validSent[i]);
           }
         }
-      }
-      else
-      {
-        Log.error("Mailer.%s: %s", method, e);
       }
     }
     while ((e instanceof MessagingException) && (e = ((MessagingException)e).getNextException()) != null);
