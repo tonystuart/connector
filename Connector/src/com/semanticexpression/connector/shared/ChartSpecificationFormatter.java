@@ -21,24 +21,26 @@ package com.semanticexpression.connector.shared;
 
 import java.util.Iterator;
 
+import com.semanticexpression.connector.client.Utility;
 import com.semanticexpression.connector.shared.enums.ChartType;
 
 public class ChartSpecificationFormatter
 {
   private static final String[] colors = new String[] {
-      "F08080",
-      "80F080",
-      "8080F0",
-      "F0F080",
-      "80F0F0",
-      "F080F0",
-
-      "F0C0C0",
-      "C0F0C0",
-      "C0C0F0",
-      "F0F0C0",
-      "C0F0F0",
-      "F0C0F0",
+      //
+      "F08080", //
+      "80F080", //
+      "8080F0", //
+      "F0F080", //
+      "80F0F0", //
+      "F080F0", //
+      //
+      "F0C0C0", //
+      "C0F0C0", //
+      "C0C0F0", //
+      "F0F0C0", //
+      "C0F0F0", //
+      "F0C0F0", //
   };
 
   public static final Integer DS_CHART_HEIGHT = 250;
@@ -56,6 +58,11 @@ public class ChartSpecificationFormatter
     this.delimiter = delimiter;
   }
 
+  private String escape(String text)
+  {
+    return Utility.escape(SafeHtml.unescape(text), "|", "?");
+  }
+
   private String formatAxisLabels(int firstColumnOffset, int lastColumnOffset)
   {
     StringBuilder s = new StringBuilder();
@@ -71,7 +78,7 @@ public class ChartSpecificationFormatter
         {
           String label = column.get(Keys.NAME, "");
           s.append("|");
-          s.append(label.replaceAll("\\s+", "+"));
+          s.append(escape(label));
         }
         columnOffset++;
       }
@@ -130,7 +137,7 @@ public class ChartSpecificationFormatter
           s.append("|");
         }
         String label = row.get(legendColumnName, "");
-        s.append(label.replaceAll("\\s+", "+"));
+        s.append(escape(label));
       }
       rowOffset++;
     }
@@ -214,7 +221,7 @@ public class ChartSpecificationFormatter
   private String formatTitle(String title)
   {
     StringBuilder s = new StringBuilder("chtt=");
-    s.append(title.replaceAll("\\s+", "+"));
+    s.append(escape(title));
     return s.toString();
   }
 

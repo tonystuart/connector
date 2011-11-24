@@ -48,6 +48,7 @@ import com.semanticexpression.connector.client.frame.editor.style.StyleExampleRe
 import com.semanticexpression.connector.client.services.GetCredentialServiceRequest;
 import com.semanticexpression.connector.client.wiring.Directory;
 import com.semanticexpression.connector.shared.Credential;
+import com.semanticexpression.connector.shared.Hex;
 import com.semanticexpression.connector.shared.Id;
 import com.semanticexpression.connector.shared.Keys;
 import com.semanticexpression.connector.shared.exception.ServerException;
@@ -287,6 +288,30 @@ public final class Utility
                     : false;
   }
 
+  public static String escape(String text, String from, String to)
+  {
+    StringBuilder s = new StringBuilder();
+    int length = text.length();
+    for (int i = 0; i < length; i++)
+    {
+      char c = text.charAt(i);
+      int toChar = translate(c, from, to);
+      if (toChar != -1)
+      {
+        c = (char)toChar;
+        if (isAlphanumeric(c))
+        {
+          s.append(c);
+        }
+        else if (c <= 0xff) // currently 8-bit only
+        {
+          s.append(toHex(c));
+        }
+      }
+    }
+    return s.toString();
+  }
+
   public static double extractDouble(String token)
   {
     double value;
@@ -498,6 +523,16 @@ public final class Utility
     return value;
   }
 
+  public static String toHex(byte b)
+  {
+    return "" + Hex.lookup[b >>> 4] + Hex.lookup[b & 0xf];
+  }
+
+  public static String toHex(char c)
+  {
+    return "%" + toHex((byte)c);
+  }
+
   public static char toLowerCase(char c)
   {
     return isUpperCase(c) ? (char)(c + ('a' - 'A')) : c;
@@ -506,6 +541,27 @@ public final class Utility
   public static char toUpperCase(char c)
   {
     return isLowerCase(c) ? (char)(c - ('a' - 'A')) : c;
+  }
+
+  private static int translate(char c, String from, String to)
+  {
+    int toChar = c;
+    if (from != null)
+    {
+      int fromOffset = from.indexOf(c);
+      if (fromOffset != -1)
+      {
+        if (fromOffset < to.length())
+        {
+          toChar = to.charAt(fromOffset);
+        }
+        else
+        {
+          toChar = -1;
+        }
+      }
+    }
+    return toChar;
   }
 
 }

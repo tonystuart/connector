@@ -21,7 +21,7 @@ package com.semanticexpression.connector.shared;
 
 public class Hex
 {
-  static final char[] lookup = new char[] {
+  public static final char[] lookup = new char[] {
       '0',
       '1',
       '2',
