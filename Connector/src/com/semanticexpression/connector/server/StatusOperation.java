@@ -22,6 +22,7 @@ package com.semanticexpression.connector.server;
 import java.util.LinkedList;
 import java.util.List;
 
+
 import com.semanticexpression.connector.shared.Id;
 import com.semanticexpression.connector.shared.Status;
 
@@ -33,7 +34,7 @@ public class StatusOperation extends BaseOperation
     super(serverContext);
   }
 
-  public List<Status> getStatus(String authenticationToken, Id monitorId)
+  public List<Status> getStatus(String authenticationToken, Id monitorId, String remoteAddr)
   {
     try
     {
@@ -41,6 +42,7 @@ public class StatusOperation extends BaseOperation
       StatusQueue statusQueue = statusQueues.get(monitorId);
       if (statusQueue == null)
       {
+        Log.info("StatusOperation.getStatus: creating queue, monitorId=%s, remoteAddr=%s", monitorId, remoteAddr);
         Id userId = getCurrentUserIdWithGuest(authenticationToken);
         statusQueue = new StatusQueue(userId);
         statusQueues.put(monitorId, statusQueue);
@@ -55,7 +57,11 @@ public class StatusOperation extends BaseOperation
         }
         else
         {
-          statusList.add(statusQueue.take());
+          Status status = statusQueue.take();
+          if (status != null) // return empty list to indicate server timeout
+          {
+            statusList.add(status);
+          }
         }
       }
       return statusList;

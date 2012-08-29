@@ -261,6 +261,7 @@ public class BaseOperation
         {
           deletedQueues++;
           statusQueues.remove(monitorId);
+          Log.info("BaseOperation.postStatus: removing queue, monitorId=%s", monitorId);
         }
         else if (monitorId.equals(sourceMonitorId))
         {

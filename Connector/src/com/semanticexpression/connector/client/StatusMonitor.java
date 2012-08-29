@@ -77,6 +77,9 @@ public class StatusMonitor
     {
       sendControlStatus("Connect (S)", "New Monitor", monitorId);
     }
+    else if (statusList.size() == 0) {
+      // server timeout
+    }
     else
     {
       StatusEvent statusEvent = new StatusEvent(statusList);

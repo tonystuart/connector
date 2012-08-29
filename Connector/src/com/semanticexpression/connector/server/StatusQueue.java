@@ -21,6 +21,7 @@ package com.semanticexpression.connector.server;
 
 import java.util.Collection;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.semanticexpression.connector.shared.Id;
@@ -76,7 +77,8 @@ public class StatusQueue extends LinkedBlockingQueue<Status> implements Comparab
   {
     clientTime = 0;
     serverTime = System.currentTimeMillis();
-    Status status = super.take();
+    //Status status = super.take();
+    Status status = super.poll(60, TimeUnit.SECONDS);
     clientTime = System.currentTimeMillis();
     serverTime = 0;
     return status;

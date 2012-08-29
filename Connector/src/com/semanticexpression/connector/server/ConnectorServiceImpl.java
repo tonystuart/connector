@@ -85,7 +85,7 @@ public class ConnectorServiceImpl extends RemoteServiceServlet implements Connec
   {
     return hostPageBaseURL;
   }
-  
+
   private OperationFactory operationFactory;
   private ServerContext serverContext;
 
@@ -410,8 +410,10 @@ public class ConnectorServiceImpl extends RemoteServiceServlet implements Connec
   {
     try
     {
+      HttpServletRequest httpServletRequest = getThreadLocalRequest();
+      String remoteAddr = httpServletRequest.getRemoteAddr();
       StatusOperation statusOperation = operationFactory.createStatusOperation();
-      return statusOperation.getStatus(authenticationToken, monitorId);
+      return statusOperation.getStatus(authenticationToken, monitorId, remoteAddr);
     }
     catch (RuntimeException e)
     {
