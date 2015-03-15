@@ -1,0 +1,5 @@
+It’s a common problem in offices everywhere: you're developing a proposal, or creating a promotional piece, or putting together a presentation for an important client. You know that others in your company have created content on this topic in the past... but who? Was it development, or marketing, or human resources, or legal, or all of the above? And where is that content now? How much of it is reusable? And who has the latest version?
+
+To answer these questions, Semantic Expression is developing Connector, an open source web application that provides a collaborative platform for creating, finding and reusing corporate knowledge.
+
+An alpha release of Connector is available for evaluation. See http://www.semantic-expression.com for more information. Connector uses content sensitive menus. After you've created your first editor frame, right click in each of its panels (e.g. outline, history, etc.) to see the commands that are available for that panel.
